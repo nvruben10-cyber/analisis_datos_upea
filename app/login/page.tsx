@@ -1,18 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { login, signup } from "@/app/auth/actions";
 import { Lock, Mail, Cpu, AlertCircle, CheckCircle2, Loader2, Power } from "lucide-react";
 
-/**
- * Pantalla de Autenticación para el Panel de Control IoT.
- * Permite tanto el inicio de sesión como la creación de nuevas cuentas de operador.
- */
-export default function LoginPage() {
+function LoginForm() {
+  const searchParams = useSearchParams();
   const [esRegistro, setEsRegistro] = useState(false);
   const [cargando, setCargando] = useState(false);
   const [mensajeError, setMensajeError] = useState<string | null>(null);
   const [mensajeExito, setMensajeExito] = useState<string | null>(null);
+
+  // Capturar errores provenientes de redirecciones (ej: confirmación de email)
+  useEffect(() => {
+    const errorParam = searchParams.get("error");
+    if (errorParam) {
+      setMensajeError(errorParam);
+    }
+  }, [searchParams]);
 
   /**
    * Manejador de envío del formulario de autenticación
@@ -181,3 +187,10 @@ export default function LoginPage() {
   );
 }
 
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-slate-950 flex items-center justify-center text-slate-400">Cargando...</div>}>
+      <LoginForm />
+    </Suspense>
+  );
+}
