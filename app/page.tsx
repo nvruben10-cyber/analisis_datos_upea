@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 
+export const dynamic = "force-dynamic";
+
 /**
  * Página principal raíz: Verifica si el usuario cuenta con sesión activa
  * y lo redirige automáticamente a la sección correspondiente.
@@ -17,4 +19,3 @@ export default async function HomePage() {
     redirect("/login");
   }
 }
-

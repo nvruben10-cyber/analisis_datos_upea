@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
+export const dynamic = "force-dynamic";
+
 /**
  * Endpoint de intercambio de código de autenticación (PKCE).
  * Cuando el usuario hace clic en el enlace de confirmación enviado a su correo electrónico,
@@ -31,4 +33,3 @@ export async function GET(request: Request) {
     `${origin}/login?error=No+se+pudo+validar+el+enlace+de+confirmacion.+Intente+iniciar+sesion+nuevamente.`
   );
 }
-

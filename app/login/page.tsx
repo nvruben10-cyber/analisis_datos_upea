@@ -14,7 +14,7 @@ function LoginForm() {
 
   // Capturar errores provenientes de redirecciones (ej: confirmación de email)
   useEffect(() => {
-    const errorParam = searchParams.get("error");
+    const errorParam = searchParams?.get("error");
     if (errorParam) {
       setMensajeError(errorParam);
     }
